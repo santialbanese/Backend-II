@@ -1,5 +1,4 @@
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 
 // Crea un hash de una contraseña proporcionada
 export const createHash = (password) => {

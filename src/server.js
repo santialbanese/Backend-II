@@ -1,25 +1,31 @@
 import express from "express" 
-import usersRouter from "./routes/api.users.routes.js";
-import homeRouter from "./routes/home.routes.js";
-import { connectDB } from "./config/mongoose.config.js"
 import { config as configHandlebars } from "./config/handlebars.config.js";
 import cookieParser from "cookie-parser";
 import { config } from "./config/passport.config.js";
-import {config as dotenvConfig} from "dotenv";
-import paths from "./utils/paths.js";
-import apiAuthRouter from "./routes/api.auth.routes.js";
+import { connectDB } from "./config/mongoose.config.js";
+ 
+
+import HomeRouter from "./routers/home.router.js";
+import {config as configDotEnv} from "./config/dotenv.config.js";
+import {config as configCORS} from "./config/cors.config.js";
+
+//bombones
+import BombonRouter from "./routers/api/bombon.router.js";
+import SessionRouter from "./routers/api/session.router.js";
+import UserRouter from "./routers/api/user.routers.js";
 
 const server = express();
-
+configDotEnv();  
+ 
 server.use(express.urlencoded({ extended: true }));
 server.use(express.json());
 server.use(cookieParser(process.env.SECRET_KEY))
 
 //Configuración de var de entorno
-dotenvConfig({ path: paths.env });
-
-//conecto con mongodb
 connectDB();
+
+//CORS
+configCORS(server);
 
 //Config de sessions y passport
 config(server);
@@ -28,10 +34,12 @@ config(server);
 configHandlebars(server); 
 
 //enrutadores
-server.use("/", homeRouter);
-server.use("/api/users", usersRouter);
-server.use("/api/auth", apiAuthRouter);
+server.use("/api/sessions", new SessionRouter().getRouter());
+server.use("/api/users", new UserRouter().getRouter());
+server.use("/", new HomeRouter().getRouter());
 
+//bombones
+server.use("/api/bombones", new BombonRouter().getRouter())
 
 // Control de rutas inexistentes
 server.use("*", (req, res) => {

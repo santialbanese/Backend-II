@@ -1,52 +1,36 @@
 import passport from "passport";
 import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
-import UserManager from "../managers/UserManager.js";
+import UserService from "../services/user.service.js";
 
-const userManager = new UserManager();
-
-const extractCookie = (req) => {
-    if (req.cookies) {
-        return req.cookies["cookieToken"];
-    }
-
-    return null;
-};
-
-const getJwtOptions = () => {
-    return {
-        jwtFromRequest: ExtractJwt.fromExtractors([extractCookie]),
-        secretOrKey: process.env.SECRET_KEY,
-    };
-};
-
-const handleLogin = async (payload, done) => {
-    try {
-        const user = await userManager.getOneById(payload.id);
-        return done(null, user);
-    } catch (error) {
-        return done(null, false, { message: error.message });
-    }
-};
+const userService = new UserService();
 
 export const config = (server) => {
-    passport.use("jwt", new JwtStrategy(getJwtOptions(), handleLogin));
+    // Opciones para la estrategia JWT basada en el encabezado Authorization
+    const jwtHeaderOptions = {
+        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+        secretOrKey: process.env.SECRET_KEY,
+    };
 
-    passport.serializeUser((user, done) => {
-        const sessionData = {
-            id: user._id?.toString(),
-            name: user.name,
-        };
-        done(null, sessionData);
-    });
+    // Opciones para la estrategia JWT basada en una cookie llamada "token"
+    const jwtCookieOptions = {
+        jwtFromRequest: (req) => req.cookies ? req.cookies["token"] : null,
+        secretOrKey: process.env.SECRET_KEY ?? "dsafdsf",
+    };
 
-    passport.deserializeUser(async (sessionData, done) => {
+    // Función que maneja el inicio de sesión
+    const handleLogin = async (payload, done) => {
         try {
-            const user = await userManager.getOneById(sessionData.id);
-            done(null, user);
+            const userFound = await userService.findOneById(payload.id);
+            return done(null, userFound);
         } catch (error) {
-            done(error.message);
+            return done(null, false, { message: error.message });
         }
-    });
+    };
 
+    // Configura las estrategias JWT para Passport
+    passport.use("jwt-header", new JwtStrategy(jwtHeaderOptions, handleLogin));
+    passport.use("jwt-cookie", new JwtStrategy(jwtCookieOptions, handleLogin));
+
+    // Inicializa Passport en el servidor
     server.use(passport.initialize());
 };
