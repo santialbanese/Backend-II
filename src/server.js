@@ -6,10 +6,12 @@ import { connectDB } from "./config/mongoose.config.js";
 import {config as configDotEnv} from "./config/dotenv.config.js";
 import {config as configCORS} from "./config/cors.config.js";
 
-
+ 
+import EmailRouter from "./routers/api/email.router.js";
 import BombonRouter from "./routers/api/bombon.router.js";
 import SessionRouter from "./routers/api/session.router.js";
 import UserRouter from "./routers/api/user.routers.js";
+import HomeViewRouter from "./routers/home.view.router.js";
 
 const server = express();
 configDotEnv();  
@@ -33,9 +35,9 @@ configHandlebars(server);
 //enrutadores
 server.use("/api/sessions", new SessionRouter().getRouter());
 server.use("/api/users", new UserRouter().getRouter());
-
-//bombones
-server.use("/api/bombones", new BombonRouter().getRouter())
+server.use("/api/emails", new EmailRouter().getRouter());
+server.use("/api/bombones", new BombonRouter().getRouter());
+server.use("/", new HomeViewRouter().getRouter());
 
 // Control de rutas inexistentes
 server.use("*", (req, res) => {
