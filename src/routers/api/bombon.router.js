@@ -14,10 +14,10 @@ export default class IngredientRouter extends BaseRouter {
     initialize() {
         const router = this.getRouter();
 
-        this.addGetRoute("/", [], (req, res) => this.#bombonController.getAll(req, res));
+        this.addGetRoute("/", [STANDARD], (req, res) => this.#bombonController.getAll(req, res));
         this.addGetRoute("/:id", [STANDARD], (req, res) => this.#bombonController.getById(req, res));
         this.addPostRoute("/", [STANDARD], uploader.single("file"), (req, res) => this.#bombonController.create(req, res));
-        this.addPutRoute("/:id", [STANDARD], uploader.single("file"), (req, res) => this.#bombonController.update(req, res));
+        this.addPutRoute("/:id", [ADMIN], uploader.single("file"), (req, res) => this.#bombonController.update(req, res));
         this.addDeleteRoute("/:id", [ADMIN], (req, res) => this.#bombonController.delete(req, res));
 
         router.use((err, req, res, next) => {
