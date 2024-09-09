@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio - Mi sistema</title>
+</head>
+<body>
+    <header>
+    <h1>Inicio</h1>
+</header>
+<main>
+    <section class="menu-container">
+        <ul class="menu-list">
+            
+            {{#if loggedOut }}
+            <li><a href="/login">Iniciar Sesión</a></li>
+            <li><a href="/api/auth/github">Iniciar Sesión con GitHub</a></li>
+            <li><a href="/register">Registrarse</a></li>
+            {{/if}}
+            {{#if loggedIn }}
+            <li><a href="/profile">Mi Perfil</a></li>
+            {{/if}}
+            <li><a href="/reset-password" class="link">Cambiar contraseña</a></li>
+            <li><a href="/current">Recurso protegido para usuarios</a></li>
+            <li><a href="/admin">Solo administradores</a></li>
+            {{#if loggedIn }}
+            <li><a href="/ingredient">Ingrediente</a></li>
+            <li><a href="/ingredients">Ingredientes</a></li>
+            {{/if}}
+        </ul>
+
+        {{#if loggedIn }}
+        <a href="/logout"><button class="logout-button">Cerrar Sesión</button></a>
+        {{/if}}
+    </section> 
+
+    {{#if loggedIn }}
+    <section class="cards-container">
+        <div class="card">
+            <img src="../images/cereza.jpg" alt="Bombones 1">
+            <h2>Bombones de Chocolate</h2>
+            <p>Deliciosos bombones rellenos de chocolate.</p>
+            <button>Comprar</button>
+        </div>
+        <div class="card">
+            <img src="../images/cereza.jpg" alt="Bombones 2">
+            <h2>Bombones de Almendra</h2>
+            <p>Bombones con corazón de almendra crujiente.</p>
+            <button>Comprar</button>
+        </div>
+        <div class="card">
+            <img src="../images/cereza.jpg" alt="Bombones 3">
+            <h2>Bombones de Frutas</h2>
+            <p>Bombones rellenos de una mezcla de frutas tropicales.</p>
+            <button>Comprar</button>
+        </div>
+        <div class="card">
+            <img src="../images/cereza.jpg" alt="Bombones 4">
+            <h2>Bombones de Menta</h2>
+            <p>Bombones con un toque refrescante de menta.</p>
+            <button>Comprar</button>
+        </div>
+        <!-- Añade más cartas según sea necesario -->
+    </section>
+    {{/if}}
+
+</main>
+
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        background: linear-gradient(to right, #6a11cb, #2575fc);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+        color: #ffffff;
+    }
+
+    header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+        text-align: center;
+        color: #ffffff;
+    }
+
+    .menu-container {
+        background-color: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .menu-list {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 1.5rem 0;
+    }
+
+    .menu-list li {
+        margin-bottom: 1rem;
+    }
+
+    .menu-list a {
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 1.25rem;
+        font-weight: bold;
+        transition: color 0.3s ease;
+    }
+
+    .menu-list a:hover {
+        color: rgb(0, 0, 0);
+    }
+
+    .logout-button {
+        background-color: #ff6f61;
+        color: #ffffff;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .logout-button:hover {
+        background-color: #ff4c3b;
+        transform: translateY(-2px) scale(1.05);
+    }
+
+    .cards-container {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        margin-top: 2rem;
+    }
+
+    .card {
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        text-align: center;
+        color: #333333;
+        transition: transform 0.3s ease;
+    }
+
+    .card img {
+        width: 100%;
+        height: auto;
+    }
+
+    .card h2 {
+        font-size: 1.5rem;
+        margin: 15px 0;
+    }
+
+    .card p {
+        color: #555;
+        font-size: 1rem;
+        margin: 0 15px 15px;
+    }
+
+    .card button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 4px;
+        font-size: 1rem;
+        cursor: pointer;
+        margin-bottom: 15px;
+        transition: background-color 0.3s ease;
+    }
+
+    .card button:hover {
+        background-color: #45a049;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+</style>
+</body>
+</html>

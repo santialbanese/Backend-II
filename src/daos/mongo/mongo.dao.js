@@ -5,7 +5,6 @@ export default class MongoDAO {
         this.#model = model;
     }
  
-    // Obtener todos los documentos con filtros opcionales
     async findAll(filters, params) {
         const sort = {
             asc: { title: 1 },
@@ -20,21 +19,17 @@ export default class MongoDAO {
             lean: true,
         };
 
-        // Busca y pagina todos los productos
         return await this.#model.paginate(filters, paginationOptions);
     }
 
-    // Buscar un documento por su ID
     async findOneById(id) {
         return await this.#model.findOne({ _id: id });
     }
 
-    // Buscar un documento por un criterio
     async findOneByCriteria(criteria) {
         return await this.#model.findOne(criteria);
     }
 
-    // Guarda los datos de un documento
     async save(data) {
         if (data.id) {
             return await this.#model.findByIdAndUpdate(data.id, data, { runValidators: true });
@@ -44,7 +39,6 @@ export default class MongoDAO {
         }
     }
 
-    // Eliminar un documento por su ID
     async deleteOneById(id) {
         return await this.#model.deleteOne({ _id: id });
     }

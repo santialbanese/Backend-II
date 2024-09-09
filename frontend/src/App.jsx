@@ -18,7 +18,7 @@ function App() {
                     localStorage.setItem('token', data.payload);
                     console.log('Token guardado en localStorage');
                     setIsLoggedIn(true); 
-                    setLoginMessage('¡Iniciaste sesión correctamente!'); // Mensaje personalizado
+                    setLoginMessage('¡Iniciaste sesión correctamente!'); 
                 } else {
                     localStorage.removeItem('token');
                     console.error(data.message);
@@ -36,12 +36,12 @@ function App() {
             <h1>App React</h1>
 
             {isLoggedIn ? ( 
-                <h3 className="success-message">{loginMessage}</h3>  // Muestra el mensaje "Iniciaste sesión correctamente"
+                <h3 className="success-message">{loginMessage}</h3>  
             ) : (
                 <>
                     <h3>Inicio de sesión</h3>
 
-                    {loginMessage && <p className="error-message">{loginMessage}</p>} {/* Muestra los mensajes de error o éxito */}
+                    {loginMessage && <p className="error-message">{loginMessage}</p>} 
 
                     <div>
                         <label htmlFor="email">Email</label>

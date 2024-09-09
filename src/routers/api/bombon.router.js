@@ -9,7 +9,7 @@ export default class IngredientRouter extends BaseRouter {
     constructor() {
         super();
         this.#bombonController = new BombonController();
-    }
+    } 
 
     initialize() {
         const router = this.getRouter();

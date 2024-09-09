@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil</title>
+</head>
+<body>
+    <header>
+    <h1>Perfil</h1>
+</header>
+
+<main>
+    <section class="profile-container">
+        <h2>Datos personales</h2>
+        <ul>
+            <li><strong>Nombre:</strong> {{name}}</li>
+            <li><strong>Apellido:</strong> {{surname}}</li>
+            <li><strong>Edad:</strong> {{age}}</li>
+            <li><strong>Email:</strong> {{email}}</li>
+        </ul>
+
+        <div class="button-group">
+            <a href="/"><button class="action-button">Volver al Menú</button></a>
+            <a href="/logout"><button class="action-button">Cerrar Sesión</button></a>
+        </div>
+    </section>
+</main>
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(90deg, #00b4db, #0083b0, #00b4db);
+        background-size: 400% 400%;
+        animation: gradientAnimation 10s ease infinite;
+    }
+
+    @keyframes gradientAnimation {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    header h1 {
+        color: #ffffff;
+        text-align: center;
+        margin-bottom: 2rem;
+        font-size: 2.5rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .profile-container {
+        background-color: rgba(255, 255, 255, 0.411);
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+    }
+
+    .profile-container ul {
+        list-style-type: none;
+        padding: 0;
+        margin-bottom: 1.5rem;
+    }
+
+    .profile-container li {
+        font-size: 1.2rem;
+        margin-bottom: 0.75rem;
+        text-align: left;
+    }
+
+    .button-group {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .action-button {
+        padding: 0.75rem 1.5rem;
+        background-color: #6200ea;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        font-size: 1rem;
+        flex-grow: 1;
+        text-align: center;
+        margin: 0 5px;
+    }
+
+    .action-button:hover {
+        background-color: #3700b3;
+    }
+
+    .action-button:first-child {
+        margin-left: 0;
+    }
+
+    .action-button:last-child {
+        margin-right: 0;
+    }
+</style>
+</body>
+</html>

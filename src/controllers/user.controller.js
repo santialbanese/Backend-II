@@ -7,9 +7,8 @@ export default class UserController {
         this.#userService = new UserService();
     }
 
-    // Obtener todos los usuarios
     async getAll(req, res) {
-        try {
+        try { 
             const users = await this.#userService.findAll(req.query);
             res.sendSuccess200(users);
         } catch (error) {
@@ -17,7 +16,6 @@ export default class UserController {
         }
     }
 
-    // Obtener un usuario por su ID
     async getById(req, res) {
         try {
             const user = await this.#userService.findOneById(req.params.id);
@@ -27,7 +25,6 @@ export default class UserController {
         }
     }
 
-    // Crear un nuevo usuario
     async create(req, res) {
         try {
             const user = await this.#userService.insertOne(req.body);
@@ -37,7 +34,6 @@ export default class UserController {
         }
     }
 
-    // Actualizar un usuario existente
     async update(req, res) {
         try {
             const user = await this.#userService.updateOneById(req.params.id, req.body);
@@ -47,7 +43,6 @@ export default class UserController {
         }
     }
 
-    // Eliminar un usuario por su ID
     async delete(req, res) {
         try {
             const user = await this.#userService.deleteOneById(req.params.id);

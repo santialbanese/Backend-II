@@ -1,0 +1,79 @@
+<header>
+    <h1>INGREDIENTES</h1>
+</header>
+
+<main class="container-ingredients">
+    <section>
+        <ul>
+            <li><a href="/">Ir al Inicio</a></li>
+            <li><a href="/auth/login">Iniciar Sesión</a></li>
+            <li><a href="/auth/logout">Cerrar Sesión</a></li>
+        </ul>
+    </section>
+
+    <section class="container-ingredients__table">
+        <h3>Ingredientes</h3>
+        <div class="container-ingredients__table__pagination">
+            <div>
+                <span>Ordenamiento</span>
+                <div>
+                    {{#if data.prevPage}}
+                    <a href="/?page={{data.prevPage}}{{data.sort}}"><button>Anterior</button></a>
+                    {{/if}}
+
+                    {{#if data.hasNextPage}}
+                    <a href="/?page={{data.nextPage}}{{data.sort}}"><button>Siguiente</button></a>
+                    {{/if}}
+
+                    <a href="/?page={{data.page}}&sort=asc"><button>⬇</button></a>
+                    <a href="/?page={{data.page}}&sort=desc"><button>⬆</button></a>
+                    <a href="/?page={{data.page}}"><button>X</button></a>
+                </div>
+            </div>
+
+            <span>Página {{data.page}} de {{data.totalPages}} ({{data.totalDocs}} documentos)</span>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Título</th>
+                    <th>Stock</th>
+                    <th>Controles</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each data.docs}}
+                <tr>
+                    <td>{{this.id}}</td>
+                    <td>{{this.title}}</td>
+                    <td>{{this.stock}}</td>
+                    <td>
+                        <a href="/ingredients/{{this._id}}/recipe/{{this.currentRecipeId}}">
+                            <button class="button-icon">
+                                <img src=" /public/icons/recipe_info.png" title="Ver más...">
+                            </button>
+                        </a>
+                        <button class="button-icon" onclick="addIngredient('{{this.currentRecipeId}}', '{{this._id}}')">
+                            <img src="/public/icons/recipe_add.png" title="Agregar a la receta">
+                        </button>
+                        <button class="button-icon"
+                            onclick="removeIngredient('{{this.currentRecipeId}}', '{{this._id}}')">
+                            <img src=" /public/icons/recipe_remove.png" title="Quitar de la receta">
+                        </button>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </section>
+
+    <section class="container-ingredients__recipe">
+        <div>
+            <a href="/recipes/{{data.currentRecipeId}}"><button>Ir a la Receta</button></a>
+            <button onclick="removeAllIngredients('{{data.currentRecipeId}}')">Vaciar Receta</button>
+        </div>
+    </section>
+</main>
+
+<script src="/public/js/ingredients.js"></script>

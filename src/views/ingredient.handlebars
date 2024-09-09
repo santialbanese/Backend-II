@@ -1,0 +1,22 @@
+<header>
+    <h1>INGREDIENTE</h1>
+</header>
+
+<main class="container-ingredient">
+    <section class="container-ingredient__details">
+        <h3>Detalles</h3>
+        <ul>
+            <li>ID: <b>{{data._id}}</b></li>
+            <li>Título: <b>{{data.title}}</b></li>
+            <li>Descripción: <b>{{data.description}}</b></li>
+            <li>Stock: <b>{{data.stock}}</b></li>
+            <li>Estado: <b>{{#if data.status}}HABILITADO{{else}}INHABILITADO{{/if}}</b></li>
+            <li>Creado: <i>{{data.createdAt}}hs</i></li>
+            <li>Actualizado: <i>{{data.updatedAt}}hs</i></li>
+        </ul>
+
+        <a href="/"><button title="Volver al inicio">↶</button></a>
+    </section>
+</main>
+
+<script src="/public/js/ingredients.js"></script>

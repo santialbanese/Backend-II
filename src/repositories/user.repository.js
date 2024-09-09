@@ -14,7 +14,6 @@ export default class UserRepository {
         this.#userDTO = new UserDTO();
     }
 
-    // Obtener todos los usuarios aplicando filtros
     async findAll(params) {
         const $and = [];
 
@@ -28,7 +27,6 @@ export default class UserRepository {
         return users;
     }
 
-    // Obtener un usuario por su ID
     async findOneById(id) {
         const user = await this.#userDAO.findOneById(id);
         if (!user) throw new Error(ERROR_NOT_FOUND_ID);
@@ -36,7 +34,6 @@ export default class UserRepository {
         return this.#userDTO.fromModel(user);
     }
 
-    // Obtener un usuario por su email y contraseña
     async findOneByEmailAndPassword(email, password) {
         const user = await this.#userDAO.findOneByCriteria({ email });
         if (!user) throw new Error(ERROR_NOT_FOUND_CREDENTIALS);
@@ -49,14 +46,12 @@ export default class UserRepository {
         return this.#userDTO.fromModel(user);
     }
 
-    // Crear o actualizar un usuario
     async save(data) {
         const userDTO = this.#userDTO.fromData(data);
         const user = await this.#userDAO.save(userDTO);
         return this.#userDTO.fromModel(user);
     }
 
-    // Eliminar un usuario por su ID
     async deleteOneById(id) {
         const user = await this.findOneById(id);
         await this.#userDAO.deleteOneById(id);

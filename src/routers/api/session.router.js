@@ -17,7 +17,6 @@ export default class SessionRouter extends BaseRouter {
         });
     }
 
-    // Maneja la solicitud POST para generar un token
     #login(req, res) {
         try {
             const token = req.token ?? req.cookies["token"] ?? null;
@@ -27,7 +26,6 @@ export default class SessionRouter extends BaseRouter {
         }
     }
 
-    // Maneja la solicitud GET para obtener el usuario autenticado
     #getCurrentUser(req, res) {
         try {
             const currentUser = {
