@@ -44,9 +44,9 @@ const bombonSchema = new Schema({
 
 bombonSchema.pre("deleteOne", async function(next) {
     try {
-        const Recipe = model("recipes");
+        const Cart = model("cart");
 
-        await Recipe.updateMany(
+        await Cart.updateMany(
             { "bombons.bombon": this._id },
             { $pull: { bombons: { bombon: this._id } } },
         );

@@ -13,8 +13,8 @@ export default class UserRouter extends BaseRouter {
     initialize() {
         const router = this.getRouter();
 
-        this.addGetRoute("/", [STANDARD], (req, res) => this.#userController.getAll(req, res));
-        this.addGetRoute("/:id", [STANDARD], (req, res) => this.#userController.getById(req, res));
+        this.addGetRoute("/", [STANDARD, ADMIN], (req, res) => this.#userController.getAll(req, res));
+        this.addGetRoute("/:id", [STANDARD, ADMIN], (req, res) => this.#userController.getById(req, res));
         this.addPostRoute("/", [], (req, res) => this.#userController.create(req, res));
         this.addPutRoute("/:id", [ADMIN], (req, res) => this.#userController.update(req, res));
         this.addDeleteRoute("/:id", [ADMIN], (req, res) => this.#userController.delete(req, res));
