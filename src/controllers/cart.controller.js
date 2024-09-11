@@ -82,4 +82,19 @@ export default class CartController {
         }
     }
 
+    async createTicketFromCart(req, res) {
+        try {
+            const response = await fetch("http://localhost:8080/api/sessions/current")
+            const responseJson = await response.json();
+            console.log(responseJson)
+            const userId = responseJson.payload.id;
+
+
+            const ticket = await this.#cartService.createTicketFromCart(userId, req.params.id);
+            res.sendSuccess201(ticket);
+        } catch (error) {
+            res.sendError(error);
+        }
+    }
+
 }

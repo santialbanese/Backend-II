@@ -45,4 +45,4 @@ export default class TicketRepository {
         await this.#ticketDAO.deleteOneById(id);
         return ticket;
     }
-}
+} 

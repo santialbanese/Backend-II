@@ -1,14 +1,16 @@
 import CartRepository from "../repositories/cart.repository.js";
+import TicketService from "./ticket.service.js";
 import { ERROR_NOT_FOUND_INDEX } from "../constants/messages.constant.js";
 
 export default class CartService {
     #cartRepository; 
+    #ticketService; 
 
     constructor() {
         this.#cartRepository = new CartRepository();
+        this.#ticketService = new TicketService();
     }
 
-    // Obtener todas las recetas aplicando filtros
     async findAll(paramFilters) {
         const $and = [];
 
@@ -18,29 +20,24 @@ export default class CartService {
         return await this.#cartRepository.findAll(filters);
     }
 
-    // Obtener una receta por su ID
     async findOneById(id) {
         return await this.#cartRepository.findOneById(id);
     }
 
-    // Crear una nueva receta
     async insertOne(data) {
         return await this.#cartRepository.save(data);
     }
 
-    // Actualizar una receta existente
     async updateOneById(id, data) {
         const cart = await this.#cartRepository.findOneById(id);
         const newValues = { ...cart, ...data };
         return await this.#cartRepository.save(newValues);
     }
 
-    // Eliminar una receta por su ID
     async deleteOneById(id) {
         return await this.#cartRepository.deleteOneById(id);
     }
 
-    // Agregar una bombone a un receta o incrementar la cantidad de un bombone existente
     async addOneIngredient(id, bombonId, quantity = 0) {
         const cart = await this.#cartRepository.findOneById(id);
 
@@ -55,7 +52,6 @@ export default class CartService {
         return await this.#cartRepository.save(cart);
     }
 
-    // Elimina un bombone de una receta o decrementa la cantidad de un bombone existente
     async removeOneIngredient(id, bombonId, quantity = 0) {
         const cart = await this.#cartRepository.findOneById(id);
 
@@ -72,12 +68,17 @@ export default class CartService {
 
         return await this.#cartRepository.save(cart);
     }
-
-    // Elimina todos los bombones de una receta por su ID
+ 
     async removeAllIngredients(id) {
         const cart = await this.#cartRepository.findOneById(id);
         cart.bombons = [];
 
         return await this.#cartRepository.save(cart);
+    }
+
+    async createTicketFromCart(id, userId) {
+        const cartFound = await this.findOneById(id);
+
+        return await this.#ticketService.insertOne(userId, cartFound);
     }
 }

@@ -1,4 +1,5 @@
 import moment from "moment";
+import { ObjectId } from "bson";
 
 export default class BombonDTO{
     fromModel(model){
@@ -14,9 +15,9 @@ export default class BombonDTO{
     fromData(data){
         return{
             id: data.id || null,
-            code: data.code,
-            purchaseDateTime: data.purchaseDateTime,
-            amount: Number(data.amount),              
+            code: new ObjectId().toString(),
+            purchase_datetime: new Date(),
+            amount: data.amount,              
             purchaser: data.purchaser,
         }
     }

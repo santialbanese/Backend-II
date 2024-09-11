@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 import paginate from "mongoose-paginate-v2";
 
-const bombonSchema = new Schema({
+const ticketSchema = new Schema({
     code: {
         type: String,
         required: [ true, "El codigo es obligatorio" ],
@@ -16,8 +16,7 @@ const bombonSchema = new Schema({
         required: [ true, "El precio es obligatorio"  ],
     },
     purchaser: {
-        type: Schema.Types.ObjectId,
-        ref: "users",
+        type: String,
         required: [ true, "es obligatorio" ],
     },
 }, {
@@ -25,8 +24,8 @@ const bombonSchema = new Schema({
     versionKey: false, // Elimina el campo __v de versión
 });
 
-bombonSchema.plugin(paginate);
+ticketSchema.plugin(paginate);
 
-const BombonModel = model("bombon", bombonSchema);
+const TicketModel = model("ticket", ticketSchema);
 
-export default BombonModel;
+export default TicketModel;

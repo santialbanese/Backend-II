@@ -45,4 +45,18 @@ export default class BombonService {
     async deleteOneById(id) {
         return await this.#bombonRepository.deleteOneById(id);
     }
+
+    async validateStock(id, quantity) {
+        const bombonFound = await this.findOneById(id);
+
+        if(bombonFound.stock < quantity){
+            throw new Error("Stock insuficiente");
+        }
+    }
+
+    async updateStockFromCart(id, quantity) {
+        const bombon = await this.findOneById(id);
+        bombon.stock -= quantity;
+        this.updateOneById(id, bombon, null)
+    }
 }
